@@ -1,0 +1,187 @@
+[
+  {
+    "name": "kvpData",
+    "data": [
+      {
+        "id": 1,
+        "name": "key",
+        "type": "STRING"
+      },
+      {
+        "id": 2,
+        "name": "value",
+        "type": "STRING"
+      },
+      {
+        "id": 3,
+        "timezone": "GMT",
+        "buckets": [
+          {
+            "id": "DAY",
+            "timezone": "GMT"
+          },
+          {
+            "id": "HOUR",
+            "timezone": "GMT"
+          },
+          {
+            "id": "MIN",
+            "timezone": "GMT"
+          },
+          {
+            "id": "SEC",
+            "size": 1000
+          }
+        ],
+        "name": "timestamp",
+        "type": "TIME"
+      },
+      {
+        "id": 4,
+        "precision": 5,
+        "buckets": [
+          {
+            "id": "1.00000",
+            "precision": 5,
+            "size": 100000
+          },
+          {
+            "id": "0.10000",
+            "precision": 5,
+            "size": 10000
+          },
+          {
+            "id": "0.01000",
+            "precision": 5,
+            "size": 1000
+          },
+          {
+            "id": "0.00100",
+            "precision": 5,
+            "size": 100
+          }
+        ],
+        "name": "longitude",
+        "type": "DECIMAL"
+      },
+      {
+        "id": 5,
+        "precision": 5,
+        "buckets": [
+          {
+            "id": "1.00000",
+            "precision": 5,
+            "size": 100000
+          },
+          {
+            "id": "0.10000",
+            "precision": 5,
+            "size": 10000
+          },
+          {
+            "id": "0.01000",
+            "precision": 5,
+            "size": 1000
+          },
+          {
+            "id": "0.00100",
+            "precision": 5,
+            "size": 100
+          }
+        ],
+        "name": "latitude",
+        "type": "DECIMAL"
+      },
+      {
+        "id": 6,
+        "name": "eventType",
+        "type": "STRING"
+      }
+    ],
+    "queries": [
+      {
+        "patterns": [
+          {
+            "group": [],
+            "where": [
+              "key"
+            ],
+            "friendlyPattern": "WHERE key GROUP BY ()",
+            "backfillProgress": null
+          }
+        ],
+        "select": "LAST(value)"
+      },
+      {
+        "patterns": [
+          {
+            "group": [
+              "eventType"
+            ],
+            "where": [],
+            "friendlyPattern": "WHERE () GROUP BY eventType",
+            "backfillProgress": null
+          },
+          {
+            "group": [
+              "longitude",
+              "latitude"
+            ],
+            "where": [
+              "longitude",
+              "latitude"
+            ],
+            "friendlyPattern": "WHERE longitude,latitude GROUP BY longitude,latitude",
+            "backfillProgress": null
+          },
+          {
+            "group": [
+              "timestamp"
+            ],
+            "where": [
+              "timestamp"
+            ],
+            "friendlyPattern": "WHERE timestamp GROUP BY timestamp",
+            "backfillProgress": null
+          },
+          {
+            "group": [
+              "timestamp",
+              "eventType"
+            ],
+            "where": [
+              "timestamp"
+            ],
+            "friendlyPattern": "WHERE timestamp GROUP BY timestamp,eventType",
+            "backfillProgress": null
+          }
+        ],
+        "select": "COUNT"
+      },
+      {
+        "patterns": [
+          {
+            "group": [
+              "eventType"
+            ],
+            "where": [],
+            "friendlyPattern": "WHERE () GROUP BY eventType",
+            "backfillProgress": null
+          }
+        ],
+        "select": "LAST(eventType)"
+      }
+    ],
+    "properties": {
+      "product_version": "5.0.0",
+      "store": "true",
+      "drill": "true",
+      "allow_missing": "true"
+    },
+    "storage": "DEFAULT",
+    "version": 22,
+    "className": "table",
+    "canDelete": true,
+    "timeDim": "timestamp"
+  }
+]
