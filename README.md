@@ -2,5 +2,5 @@
 tardis
 ======
 
-Key Value storage with injectable pre-processors
+Key Value storage interface for Acunu Analytics with injectable pre-processors.
 
